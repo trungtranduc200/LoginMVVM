@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">LoginMVVM</string>
+    <string name="tittle_by_clicking_sign_up">By clicking Sign Up, you are indicating that you have read \nand agree to the Terms of Service and Privacy Policy</string>
+    <string name="tittle_over_years_of_age">I am over 16 years of age</string>
+    <string name="tittle_started">Let’s get you started!</string>
+    <string name="title_welcome">Wellcome to Flutter Test</string>
+    <string name="title_select_categories">Please select categories what you would like to see \non your feed. You can set this later on Filter.</string>
+    <string name="tv_Done">Done</string>
+    <string name="tv_Sign_Up">Sign Up</string>
+    <string name="tv_Your_Password">Your Password</string>
+    <string name="tv_Your_Email">Your Email</string>
+    <string name="tv_too_short">Too Short</string>
+    <string name="tv_week">Week</string>
+    <string name="tv_fair">Fair</string>
+    <string name="tv_good">Good</string>
+    <string name="tv_strong">Strong</string>
+</resources>
