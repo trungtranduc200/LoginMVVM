@@ -43,6 +43,7 @@ class CategoriesActivity : AppCompatActivity(), CategoriesAdapter.OnClickItem {
         binding.viewModel = viewModel
         initData()
         initView()
+        callback()
     }
 
     private fun initData() {
@@ -60,17 +61,7 @@ class CategoriesActivity : AppCompatActivity(), CategoriesAdapter.OnClickItem {
 
     private fun initView() {
         binding.actCategoriesTvDone.isEnabled = false
-        viewModel.categoriesResult.observe(this) {
-//            if (it.isNotEmpty()) {
-//                categoriesAdapter.setData(it)
-//                binding.actCategoriesRclCategories.layoutManager = GridLayoutManager(this, 3)
-//                binding.actCategoriesRclCategories.adapter = categoriesAdapter
-//            }
-            categoriesAdapter.setData(dataList())
-            binding.actCategoriesRclCategories.layoutManager = GridLayoutManager(this, 3)
-            binding.actCategoriesRclCategories.adapter = categoriesAdapter
 
-        }
 
         binding.actCategoriesBtnBack.setOnClickListener {
             finish()
@@ -81,17 +72,18 @@ class CategoriesActivity : AppCompatActivity(), CategoriesAdapter.OnClickItem {
         }
     }
 
-    private fun dataList(): List<ItemModel> {
-        return mutableListOf(
-            ItemModel(1, "23/09/2023", "23/09/2023", "Hopes"),
-            ItemModel(1, "23/09/2023", "23/09/2023", "Bullying"),
-            ItemModel(1, "23/09/2023", "23/09/2023", "Works"),
-            ItemModel(1, "23/09/2023", "23/09/2023", "Music"),
-            ItemModel(1, "23/09/2023", "23/09/2023", "Hopes"),
-            ItemModel(1, "23/09/2023", "23/09/2023", "Hopes"),
-            ItemModel(1, "23/09/2023", "23/09/2023", "Hopes"),
-            ItemModel(1, "23/09/2023", "23/09/2023", "Bullying"),
-        )
+    private fun callback() {
+        viewModel.categoriesResult.observe(this) {
+            if (it.isNotEmpty()&&it != null) {
+                categoriesAdapter.setData(it)
+                binding.actCategoriesRclCategories.layoutManager = GridLayoutManager(this, 3)
+                binding.actCategoriesRclCategories.adapter = categoriesAdapter
+            }
+        }
+
+        viewModel.categoriesError.observe(this){
+            Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onClick(itemModel: ItemModel, list: List<ItemModel>) {

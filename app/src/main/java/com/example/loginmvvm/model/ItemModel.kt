@@ -1,4 +1,15 @@
 package com.example.loginmvvm.model
 
-data class ItemModel(val id:Int, val createdAt:String, val updateAt:String, val name:String,
-                     var selected:Boolean = false)
+import com.google.gson.annotations.SerializedName
+
+data class ItemModel(
+    @SerializedName("id")
+    val id: Int,
+    @SerializedName("createdAt")
+    val createdAt: String,
+    @SerializedName("updatedAt")
+    val updateAt: String,
+    @SerializedName("name")
+    val name: String,
+    var selected: Boolean = false
+)

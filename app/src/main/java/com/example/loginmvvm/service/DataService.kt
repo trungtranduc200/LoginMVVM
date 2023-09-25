@@ -15,5 +15,5 @@ interface DataService {
     suspend fun signup(@Body request: UserRequest): Response<User>
 
     @GET("categories")
-    suspend fun getListCategory(@Header("Authorization") token: String): List<ItemModel>
+    suspend fun getListCategory(@Header("Authorization") token: String): Response<List<ItemModel>>
 }
