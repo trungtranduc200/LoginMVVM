@@ -12,7 +12,6 @@ import com.example.loginmvvm.model.ItemModel
 class CategoriesAdapter(private val callback: OnClickItem):RecyclerView.Adapter<CategoriesAdapter.ViewHolder>(){
     private var list:List<ItemModel> = listOf()
 
-
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
         val tvTitle: TextView
         val rlItem: RelativeLayout
@@ -34,16 +33,22 @@ class CategoriesAdapter(private val callback: OnClickItem):RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvTitle.text = list[position].name
+        val item = list[position]
+        holder.tvTitle.text = item.name
         holder.itemView.setOnClickListener{
-            list[position].selected = !list[position].selected
-            if (list[position].selected){
-                holder.rlItem.setBackgroundResource(R.drawable.bg_border_item_selected)
-            }else{
+            if (item.selected){
+                item.selected = false
                 holder.rlItem.setBackgroundResource(R.drawable.bg_border_item)
+            }else{
+                item.selected = true
+                holder.rlItem.setBackgroundResource(R.drawable.bg_border_item_selected)
             }
-            callback.onClick(list[position],list)
+            callback.onClick(item,list)
         }
+        if (item.selected)
+            holder.rlItem.setBackgroundResource(R.drawable.bg_border_item_selected)
+        else
+            holder.rlItem.setBackgroundResource(R.drawable.bg_border_item)
     }
 
     fun setData(list: List<ItemModel>){

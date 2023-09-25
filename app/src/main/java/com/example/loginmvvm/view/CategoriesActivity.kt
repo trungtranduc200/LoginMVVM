@@ -1,5 +1,6 @@
 package com.example.loginmvvm.view
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
 import android.os.Bundle
@@ -68,7 +69,7 @@ class CategoriesActivity : AppCompatActivity(), CategoriesAdapter.OnClickItem {
         }
 
         binding.actCategoriesTvDone.setOnClickListener {
-            Toast.makeText(this,"Vào màn hình bên trong",Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 
