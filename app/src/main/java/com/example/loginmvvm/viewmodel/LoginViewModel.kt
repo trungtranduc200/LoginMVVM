@@ -23,11 +23,11 @@ class LoginViewModel(private val repository: LoginRepository) : ViewModel() {
                 val response = repository.login(loginRequest)
                 if (response.code() == 200){
                     loginResult.postValue(response.body())
+                }else if(response.code() == 401){
+                    loginError.postValue("Mật khẩu không chính xác")
                 }else{
-                    loginError.postValue("Đăng nhập thất bại")
+                    loginError.postValue(response.message())
                 }
-                Log.d("trungtd11 response",response.message())
-
             } catch (e: Exception) {
                 loginError.postValue(e.message)
             }
@@ -39,13 +39,13 @@ class LoginViewModel(private val repository: LoginRepository) : ViewModel() {
             try {
                 val response = repository.signup(userRequest)
                 if (response.code() == 201){
-                    login(LoginRequest(userRequest.email,userRequest.password))
                     sigUpError.postValue("Đăng ký account thành công. Đang tiến hành đăng nhập")
-                }else if(response.code() == 403){
                     login(LoginRequest(userRequest.email,userRequest.password))
+                }else if(response.code() == 403){
                     sigUpError.postValue("Account đã tồn tại. Đang tiến hành đăng nhập")
+                    login(LoginRequest(userRequest.email,userRequest.password))
                 }else{
-                    sigUpError.postValue("Có lỗi trong quá trình đăng ký")
+                    sigUpError.postValue(response.message())
                 }
             } catch (e: Exception) {
                 sigUpError.postValue(e.message)

@@ -16,7 +16,6 @@ class CategoriesViewModel(private val repository: CategoriesRepository) : ViewMo
         viewModelScope.launch(Dispatchers.IO){
             try {
                 val response = repository.getListCategory(token)
-                Log.d("trungtd11","")
                 if (response.code() == 200){
                     categoriesResult.postValue(response.body())
                 }else{

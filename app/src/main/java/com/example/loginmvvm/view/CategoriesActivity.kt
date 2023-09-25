@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -19,6 +20,7 @@ import com.example.loginmvvm.service.APIService
 import com.example.loginmvvm.util.Constant
 import com.example.loginmvvm.util.Constant.KEY_SAVE_LIST
 import com.example.loginmvvm.viewmodel.CategoriesViewModel
+import com.google.gson.Gson
 
 class CategoriesActivity : AppCompatActivity(), CategoriesAdapter.OnClickItem {
     private lateinit var binding: ActivityCategoriesBinding
@@ -48,7 +50,7 @@ class CategoriesActivity : AppCompatActivity(), CategoriesAdapter.OnClickItem {
     }
 
     private fun initData() {
-        pref = getSharedPreferences("PREF", MODE_PRIVATE)
+        pref = getSharedPreferences(Constant.KEY_PREF, MODE_PRIVATE)
         editor = pref.edit()
         val token = pref.getString(Constant.KEY_TOKEN_LOGIN, null)
         if (token != null) {
@@ -88,10 +90,28 @@ class CategoriesActivity : AppCompatActivity(), CategoriesAdapter.OnClickItem {
     }
 
     override fun onClick(itemModel: ItemModel, list: List<ItemModel>) {
-        var enableButtonDone = list.any{
+        val enableButtonDone = list.any{
             it.selected
         }
+        saveDataLocal(list)
         binding.actCategoriesTvDone.isEnabled = enableButtonDone
         Toast.makeText(this, itemModel.name, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun saveDataLocal(list: List<ItemModel>){
+        val result = list.filter {
+            it.selected
+        }
+        val pref = getSharedPreferences(Constant.KEY_PREF_LIST, MODE_PRIVATE)
+        val editor = pref.edit()
+        val gson = Gson()
+        val json = gson.toJson(result)
+        editor.putString(KEY_SAVE_LIST,json)
+        editor.apply()
+
+
+        //View log data save json List
+        val data = pref.getString(KEY_SAVE_LIST, null)
+        Log.d("trungtd11",data.toString())
     }
 }

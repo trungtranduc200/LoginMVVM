@@ -14,4 +14,5 @@
     <string name="tv_fair">Fair</string>
     <string name="tv_good">Good</string>
     <string name="tv_strong">Strong</string>
+    <string name="tv_error_information_login">"Vui lòng nhập thông tin đăng nhập đúng quy định"</string>
 </resources>

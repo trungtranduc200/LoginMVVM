@@ -50,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
     private fun callback() {
         viewModel.loginResult.observe(this, Observer {
             if (it != null) {
-                val pref = getSharedPreferences("PREF", MODE_PRIVATE)
+                val pref = getSharedPreferences(Constant.KEY_PREF, MODE_PRIVATE)
                 pref.edit().putString(Constant.KEY_TOKEN_LOGIN, it.accessToken).apply()
                 startActivity(Intent(this, CategoriesActivity::class.java))
             }
@@ -82,7 +82,7 @@ class LoginActivity : AppCompatActivity() {
                 val password = binding.actLoginEdtPassword.text.toString()
                 viewModel.signup(UserRequest(email, password,"test","test"))
             }else{
-                Toast.makeText(this,"Vui lòng nhập thông tin đăng nhập đúng quy định",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,resources.getString(R.string.tv_error_information_login),Toast.LENGTH_SHORT).show()
             }
         }
 
